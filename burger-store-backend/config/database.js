@@ -1,5 +1,20 @@
-require("dotenv").config();
+require("dotenv").config({path: '../.env'});
 
 module.exports = {
-    database: process.env.DB_URI
-  };
+  production: {
+    databaseUri: process.env.DB_URI,
+    options: {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+
+    },
+  },
+  test: {
+    databaseUri:  process.env.DB_URI,
+    options: {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+
+    },
+  },
+};

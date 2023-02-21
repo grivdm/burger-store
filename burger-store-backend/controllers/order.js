@@ -1,56 +1,51 @@
-const Order = require('../models/order');
+const Order = require("../models/order");
 
 exports.getAllOrders = async (req, res, next) => {
-  try {
-    const orders = await Order.find();
-    res.json(orders);
-  } catch (error) {
-    next(error);
-  }
+  const orders = await Order.find();
+  res.status(200).json(orders);
 };
 
 exports.getOrderById = async (req, res, next) => {
-  const { id } = req.params;
-  try {
-    const order = await Order.findById(id);
-    res.json(order);
-  } catch (error) {
-    next(error);
+  const order = await Order.findById(req.params.id);
+  if (order) {
+    res.status(200).json(order);
+  } else {
+    return next(createError.NotFound("Order not found"));
   }
 };
 
 exports.createOrder = async (req, res, next) => {
-  const { user, items, totalPrice } = req.body;
-  const order = new Order({ user, items, totalPrice });
+  const order = new Order(req.body);
   try {
-    await order.save();
-    res.status(201).json(order);
-  } catch (error) {
-    next(error);
+    const newOrder = await order.save();
+    res.status(201).json(newOrder);
+  } catch (err) {
+    return next(createError(400, err.message));
   }
 };
 
 exports.updateOrderById = async (req, res, next) => {
-  const { id } = req.params;
-  const { user, items, totalPrice } = req.body;
-  try {
-    const order = await Order.findByIdAndUpdate(
-      id,
-      { user, items, totalPrice },
-      { new: true }
-    );
-    res.json(order);
-  } catch (error) {
-    next(error);
+  const order = await Order.findById(req.params.id);
+  if (order) {
+    order.name = req.body.name || order.name;
+    order.description = req.body.description || order.description;
+    order.price = req.body.price || order.price;
+    order.image = req.body.image || order.image;
+
+    try {
+      const updatedOrder = await order.save();
+      res.status(200).json(updatedOrder);
+    } catch (err) {
+      return next(createError(400, err.message));
+    }
+  } else {
+    return next(createError.NotFound("Order not found"));
   }
 };
 
 exports.deleteOrderById = async (req, res, next) => {
-  const { id } = req.params;
-  try {
-    await Order.findByIdAndDelete(id);
+
+    await Order.findByIdAndDelete(req.params.id);
     res.status(204).send();
-  } catch (error) {
-    next(error);
-  }
+
 };

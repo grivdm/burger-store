@@ -7,7 +7,7 @@ const OrderSchema = new mongoose.Schema({
     required: true
   },
   items: [{
-    Product: {
+    product: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Product'
     },
@@ -25,7 +25,7 @@ const OrderSchema = new mongoose.Schema({
     type: Number,
     required: true
   }
-});
+},{timestamp: true});
 
 const Order = mongoose.model('Order', OrderSchema);
 
