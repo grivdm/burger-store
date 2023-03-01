@@ -13,11 +13,12 @@ const ProductSchema = new mongoose.Schema({
   price: {
     type: Number,
     required: true,
-
+    min: 0
   },
   image: {
     type: String,
     required: true
+
   },
   category:{
     type: mongoose.Schema.Types.ObjectId,
@@ -28,3 +29,4 @@ const ProductSchema = new mongoose.Schema({
 const Product = mongoose.model('Product', ProductSchema);
 
 module.exports = Product;
+

@@ -1,9 +1,12 @@
 const assert = require("chai").assert;
 const mongoose = require("mongoose");
 const User = require("../../models/user");
+const Order = require("../../models/order");
+const Address = require("../../models/address");
 const dbConfig = require("../../config/database");
 mongoose.set("strictQuery", false);
 
+// Test User Model
 describe("User Model", () => {
   before(async () => {
     await mongoose.connect(dbConfig.test.databaseUri, dbConfig.test.options);
@@ -14,7 +17,7 @@ describe("User Model", () => {
   after(async () => {
     await mongoose.connection.close();
   });
-
+  
   it("save a user", async () => {
     const user = new User({
       name: "Test User",
@@ -27,6 +30,7 @@ describe("User Model", () => {
     assert.equal(savedUser.email, "test@example.com");
     assert.equal(savedUser.role, "customer");
     assert.strictEqual(savedUser.isActive, false);
+    assert.isUndefined(savedUser.password);
     
   });
   it("not allow missing name field ", async () => {
@@ -155,4 +159,53 @@ describe("User Model", () => {
 
 
   });
+  it("create and show user's orders", async () => {
+    const user = new User({
+      name: "Test User",
+      email: "test@example.com",
+      password: "password123",
+    });
+    const savedUser = await user.save();
+    const order = new Order({
+      user: savedUser._id,
+      items: [{ product: mongoose.Types.ObjectId(), quantity: 1 }],
+      total: 10,
+    });
+    await order.save();
+    const userOrders = await User.findById(savedUser._id).populate("orders");
+    assert.isDefined(userOrders);
+    assert.equal(userOrders.orders.length, 1);
+    assert.equal(userOrders.orders[0].total, 10);
+  });
+  it("create and show user's addresses", async () => {
+    const user = new User({
+      name: "Test User",
+      email: "test@example.com",
+      password: "password123",
+    });
+    const savedUser = await user.save();
+
+    const address = new Address({
+      user: savedUser._id,
+      address: "Test Street",
+    });
+    await address.save();
+    const userAddresses = await User.findById(savedUser._id).populate("addresses");
+    assert.isDefined(userAddresses);
+    assert.equal(userAddresses.addresses.length, 1);
+    assert.equal(userAddresses.addresses[0].address, "Test Street");
+
+    const address2 = new Address({
+      user: savedUser._id,
+      address: "Test Street 2",
+    });
+    await address2.save();
+    const userAddresses2 = await User.findById(savedUser._id).populate("addresses");
+    assert.isDefined(userAddresses2);
+    assert.equal(userAddresses2.addresses.length, 2);
+    assert.equal(userAddresses2.addresses[1].address, "Test Street 2");
+
+
+  });
+
 });

@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const assert = require("chai").assert;
 mongoose.set("strictQuery", false);
 const Category = require("../../models/productCategory");
+const Product = require("../../models/product");
 const dbConfig = require("../../config/database");
 
 describe("Category Model", () => {
@@ -78,5 +79,61 @@ describe("Category Model", () => {
 
     assert.isNull(deletedCategory);
   });
+
+  // it("add a subcategory to an existing category and find it in db", async () => {
+  //   const category = new Category({
+  //     name: "Test Category",
+  //     description: "This is a test category",
+  //   });
+
+  //   const savedCategory = await category.save();
+
+  //   savedCategory.subcategories.push({
+  //     name: "Test Subcategory",
+  //     description: "This is a test subcategory",
+  //   });
+
+  //   const updatedCategory = await savedCategory.save();
+
+  //   assert.equal(updatedCategory.subcategories.length, 1);
+  //   assert.equal(updatedCategory.subcategories[0].name, "Test Subcategory");
+  //   assert.equal(
+  //     updatedCategory.subcategories[0].description,
+  //     "This is a test subcategory"
+  //   );
+    
+  //   const foundCategory = await Category.findById(savedCategory._id); 
+  //   assert.equal(foundCategory.subcategories.length, 1);
+  //   assert.equal(foundCategory.subcategories[0].name, "Test Subcategory");
+  //   assert.equal(
+  //     foundCategory.subcategories[0].description,
+  //     "This is a test subcategory"
+  //   );
+
+  // });
+
+  // it("add a product to an existing subcategory and find it in db", async () => {
+  //   const category = new Category({
+  //     name: "Test Category",
+  //     description: "This is a test category",
+  //     subcategories: "Test Subcategory"
+  //   });
+  //   const savedCategory = await category.save();
+  //   const  product = new Product({
+  //     name: "Test Product",
+  //     description: "This is a test product",
+  //     price: 10.99,
+  //     category: "Test Subcategory",
+  //   });
+  //   const savedProduct = await product.save();
+  //   assert.equal(savedProduct.category, "Test Subcategory");
+  //   console.log(savedCategory.subcategories);
+  //   assert.equal(savedCategory.subcategories[0].products.length, 1);
+  //   assert.equal(savedCategory.subcategories[0].products[0].name, "Test Product");
+
+
+
+
+  // });
 
 });

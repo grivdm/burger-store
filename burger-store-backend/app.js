@@ -1,6 +1,7 @@
 const orderRoutes = require('./routes/orders'); 
 const productRoutes = require('./routes/products'); 
 const userRoutes = require('./routes/users'); 
+const categoryRoutes = require('./routes/productCategory');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -31,6 +32,7 @@ app.use(passport.session());
 app.use('/users', userRoutes);
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
+app.use('/categories', categoryRoutes);
 
 
 app.use(errorHandler)

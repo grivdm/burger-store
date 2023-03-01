@@ -1,20 +1,70 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const userController = require('../controllers/user');
+const userController = require("../controllers/user");
+const checkIdIsValid = require("../middlewares/checkIdHandler");
 
 // GET all users
-router.get('/', userController.getAllUsers);
+router.get("/", userController.getAllUsers);
 
-// GET a single user by ID
-router.get('/:id', userController.getUserById);
+// GET an user by ID
+router.get(
+  "/:id",
+  checkIdIsValid,
+  userController.checkIfUserExist,
+  userController.getUserById
+);
 
 // POST a new user
-router.post('/', userController.createUser);
+router.post("/", userController.createUser);
 
-// PUT an existing user by ID
-router.put('/:id', userController.updateUserById);
+// PUT an user by ID
+router.put(
+  "/:id",
+  checkIdIsValid,
+  userController.checkIfUserExist,
+  userController.updateUserById
+);
 
-// DELETE an existing user by ID
-router.delete('/:id', userController.deleteUserById);
+// DELETE an user by ID
+router.delete(
+  "/:id",
+  checkIdIsValid,
+  userController.checkIfUserExist,
+  userController.deleteUserById
+);
 
+//PUT an user password by ID
+router.put(
+  "/:id/password",
+  checkIdIsValid,
+  userController.checkIfUserExist,
+  userController.updateUserPasswordById
+);
+
+
+//GET orders of a user by ID
+router.get(
+  "/:id/orders",
+  checkIdIsValid,
+  userController.checkIfUserExist,
+  userController.getOrdersByUserId
+);
+
+//GET addresses of a user by ID
+router.get(
+  "/:id/addresses",
+  checkIdIsValid,
+  userController.checkIfUserExist,
+  userController.getAddressesByUserId
+);
+
+//POST a new address for a user by ID
+router.post(
+  "/:id/addresses",
+  checkIdIsValid,
+  userController.checkIfUserExist,
+  userController.createAddressByUserId
+);
+
+// Export the router
 module.exports = router;

@@ -80,6 +80,12 @@ describe("Product Route", () => {
     assert.equal(res.body.price, 10.0);
     assert.equal(res.body.image, "image1.jpg");
   });
+  it("return an error when product id is invalid", async () => {
+    const res = await request(app)
+      .get(`/products/1`)
+      .set("Accept", "application/json");
+    assert.equal(res.status, 400);
+  });
   it("delete a product by id", async () => {
     const product = new Product({
         name: "Product 1",
@@ -102,5 +108,42 @@ describe("Product Route", () => {
       })
       .set("Accept", "application/json");
     assert.equal(res.status, 400);
+  });
+  it("return an error when price is negative", async () => {
+    const res = await request(app)
+      .post("/products")
+      .send({
+        name: "Product 1",
+        description: "Description 1",
+        price: -10.0,
+        image: "image1.jpg",
+      })
+      .set("Accept", "application/json");
+    assert.equal(res.status, 400);
+  });
+  it("get a product by name", async () => {
+    const product1 = new Product({
+        name: "Product 1",
+        description: "Description 1",
+        price: 10.0,
+        image: "image1.jpg",
+    });
+    await product1.save();
+    const product2 = new Product({
+        name: "Product 2",
+        description: "Description 2",
+        price: 20.0,
+        image: "image2.jpg",
+    });
+    await product2.save();
+    const res = await request(app)
+      .get(`/products/search?name=Product [0-9]`) // Rege
+      .set("Accept", "application/json");
+
+    assert.equal(res.status, 200);
+    assert.equal(res.body[0].name, "Product 1");
+    assert.equal(res.body[0].description, "Description 1");
+    assert.equal(res.body[0].price, 10.0);
+    assert.equal(res.body[0].image, "image1.jpg");
   });
 });

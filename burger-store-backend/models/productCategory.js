@@ -7,7 +7,9 @@ const ProductCategorySchema = new mongoose.Schema({
     },
     description: {
       type: String,
-    }
+    },
+    subcategories: { type: [String], default: [] }
+      
   });
   
   const ProductCategory = mongoose.model('ProductCategory', ProductCategorySchema);
