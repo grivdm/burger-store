@@ -128,7 +128,7 @@ describe("Order Route", () => {
         const res = await request(app)
             .delete("/orders/" + order._id)
             .set("Accept", "application/json");
-        assert.equal(res.status, 200);
+        assert.equal(res.status, 204);
     });
 
 });  

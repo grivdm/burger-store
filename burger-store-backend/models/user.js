@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const UserSchema = new mongoose.Schema(
   {
@@ -26,9 +27,9 @@ const UserSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["customer", "admin", "superadmin", "vendor"], 
+      enum: ["customer", "admin", "superadmin", "vendor"],
       default: "customer",
-    
+
       /* superadmin can do everything, 
       admin can do everything except create new admins, 
       vendor can't do anything except create new products and update existing products, 
@@ -37,12 +38,18 @@ const UserSchema = new mongoose.Schema(
     isActive: {
       type: Boolean,
       default: false,
-
     },
+
+    // Reset password token
+    // resetPasswordToken: String,
+    // resetPasswordExpire: Date,
+
+    // // Verify email token
+    // verifyEmailToken: String,
+    // verifyEmailExpire: Date,
   },
   { timestamp: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
-
 
 // Virtuals
 
@@ -55,10 +62,9 @@ UserSchema.virtual("orders", {
 });
 
 // Virtual for checking if user is admin
-UserSchema.virtual("isAdmin").get(function() {
+UserSchema.virtual("isAdmin").get(function () {
   return this.role === "admin" || this.role === "superadmin";
 });
-
 
 // Virtual for user's addresses (one-to-many)
 UserSchema.virtual("addresses", {
@@ -68,7 +74,30 @@ UserSchema.virtual("addresses", {
   justOne: false,
 });
 
+// Pre save hook to hash password
+UserSchema.pre("save", async function (next) {
+  try {
+    if (!this.isModified("password")) {
+      return next();
+    }
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(this.password, salt);
+    this.password = hashedPassword;
+    return next();
+  } catch (error) {
+    return next(error);
+  }
+});
 
+// Method to compare password
+UserSchema.methods.comparePassword = async function (reqPassword, next) {
+  try {
+    const isMatch = await bcrypt.compare(reqPassword, this.password);
+    return isMatch;
+  } catch (error) {
+    return next(error);
+  }
+};
 
 const User = mongoose.model("User", UserSchema);
 

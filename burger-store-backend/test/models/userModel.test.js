@@ -103,6 +103,18 @@ describe("User Model", () => {
     assert.isDefined(updatedUser);
     assert.equal(updatedUser.name, "New Name");
   });
+  // it("update a user's email", async () => {
+  //   const user = new User({
+  //     name: "Test User",
+  //     email: "test@example.com",
+  //     password: "password123",
+  //   });
+  //   const savedUser = await user.save();
+  //   savedUser.email = "test1@example.com"
+  //   const updatedUser = await savedUser.save()
+  //   console.log(updatedUser)
+
+  // });
   it("not allow name longer than 50 characters", async () => {
     const user = new User({
       name: "a".repeat(51),
@@ -205,6 +217,31 @@ describe("User Model", () => {
     assert.equal(userAddresses2.addresses.length, 2);
     assert.equal(userAddresses2.addresses[1].address, "Test Street 2");
 
+
+  });
+  it('check if password hashed and isMatch', async () => {
+    const user = new User({
+      name: "Test User",
+      email: "test@example.com",
+      password: "password123",
+    });
+    await user.save();
+    assert.notEqual(user.password, "password123");
+    const isMatch = await user.comparePassword("password123");
+    assert.isTrue(isMatch);
+  });
+  it('check if changed password is hashed and isMatch', async () => {
+    const user = new User({
+      name: "Test User",
+      email: "test@example.com",
+      password: "password123",
+    });
+    await user.save();
+    user.password = "password1234"; // change password
+    await user.save();
+    assert.notEqual(user.password, "password1234");
+    const isMatch = await user.comparePassword("password1234");
+    assert.isTrue(isMatch);
 
   });
 
