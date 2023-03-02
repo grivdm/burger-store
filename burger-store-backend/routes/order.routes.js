@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const orderController = require("../controllers/order");
+const orderController = require("../controllers/order.controllers");
 const checkIdIsValid = require("../middlewares/checkIdHandler");
 
 // GET all orders

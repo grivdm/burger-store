@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const userController = require("../controllers/user");
+const userController = require("../controllers/user.controllers");
 const checkIdIsValid = require("../middlewares/checkIdHandler");
 
 // GET all users

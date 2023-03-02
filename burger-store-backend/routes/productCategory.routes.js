@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const productCategoryController = require("../controllers/productCategory");
+const productCategoryController = require("../controllers/productCategory.controllers");
 const checkIdIsValid = require("../middlewares/checkIdHandler");
 
 // GET all product categories
