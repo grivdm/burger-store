@@ -36,7 +36,6 @@ describe.only("Authorization", () => {
       email: "test@example.com",
       password: "password123",
     });
-    console.log(res.error);
     assert.equal(res.status, 200);
     assert.equal(res.text, "OK");
     // check cookie
@@ -67,10 +66,10 @@ describe.only("Authorization", () => {
     assert.equal(res.status, 400);
     assert.equal(res.body.message, "Invalid email or password");
   });
-  it("does not allow to log in", async () => {
+  it("does not allow to access a protected route", async () => {
     const res = await testSession.get("/auth/user");
     assert.equal(res.status, 401);
-    // assert.equal(res.body.message, "Unauthorized");
+    assert.equal(res.body.message, "Unauthorized");
   });
   it("checks if a user is logged in", async () => {
     await testSession.post("/auth/login").send({
@@ -80,5 +79,17 @@ describe.only("Authorization", () => {
     const res = await testSession.get("/auth/user");
     assert.equal(res.status, 200);
     assert.equal(res.body.name, "Test User");
+  });
+  it("logs out a user", async () => {
+    await testSession.post("/auth/login").send({
+      email: "test@example.com",
+      password: "password123",
+    });
+    const res = await testSession.post("/auth/logout");
+    assert.equal(res.status, 200);
+    assert.equal(res.text, "OK");
+
+    const res1 = await testSession.get("/auth/user");
+    assert.equal(res1.status, 401);
   });
 });
