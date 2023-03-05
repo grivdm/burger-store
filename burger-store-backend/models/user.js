@@ -25,15 +25,15 @@ const UserSchema = new mongoose.Schema(
       minlength: [6, "Password should be at least 6 characters long"],
       select: false,
     },
+    
+          /* superadmin can do everything, 
+          admin can do everything except create new admins, 
+          vendor can't do anything except create new products and update existing products, 
+          customer can't do anything except create new orders*/
     role: {
       type: String,
       enum: ["customer", "admin", "superadmin", "vendor"],
       default: "customer",
-
-      /* superadmin can do everything, 
-      admin can do everything except create new admins, 
-      vendor can't do anything except create new products and update existing products, 
-      customer can't do anything except create new orders*/
     },
     isActive: {
       type: Boolean,
@@ -92,7 +92,8 @@ UserSchema.pre("save", async function (next) {
 // Method to compare password
 UserSchema.methods.comparePassword = async function (reqPassword, next) {
   try {
-    const isMatch = await bcrypt.compare(reqPassword, this.password);
+    const user = await this.constructor.findOne({ _id: this._id }).select('+password');
+    const isMatch = await bcrypt.compare(reqPassword, user.password);
     return isMatch;
   } catch (error) {
     return next(error);

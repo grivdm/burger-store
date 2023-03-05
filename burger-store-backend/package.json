@@ -36,6 +36,7 @@
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "sinon": "^15.0.1",
-    "supertest": "^6.3.3"
+    "supertest": "^6.3.3",
+    "supertest-session": "^4.1.0"
   }
 }
