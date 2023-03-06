@@ -1,4 +1,4 @@
-// const request = require("supertest");
+const request = require("supertest");
 const app = require("../../app");
 const User = require("../../models/user");
 const assert = require("chai").assert;
@@ -7,10 +7,8 @@ const mongoose = require("mongoose");
 const session = require("supertest-session");
 
 // Test Authorization
-describe.only("Authorization", () => {
+describe("Authorization", () => {
   before(async () => {
-    await User.deleteMany({});
-
     await mongoose.connect(dbConfig.test.databaseUri, dbConfig.test.options);
     const user = new User({
       name: "Test User",
@@ -24,14 +22,14 @@ describe.only("Authorization", () => {
     testSession = session(app); // initialize test session
   });
   afterEach(async () => {
-    // testSession.cookies = {};// clear cookies
+    testSession.cookies = {};// clear cookies
   });
   after(async () => {
     await User.deleteMany({});
     await mongoose.connection.close();
   });
 
-  it("create user session for valid user", async () => {
+  it("creates user session for valid user", async () => {
     const res = await testSession.post("/auth/login").send({
       email: "test@example.com",
       password: "password123",

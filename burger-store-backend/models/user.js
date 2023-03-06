@@ -26,13 +26,10 @@ const UserSchema = new mongoose.Schema(
       select: false,
     },
     
-          /* superadmin can do everything, 
-          admin can do everything except create new admins, 
-          vendor can't do anything except create new products and update existing products, 
-          customer can't do anything except create new orders*/
+
     role: {
       type: String,
-      enum: ["customer", "admin", "superadmin", "vendor"],
+      enum: ["customer", "admin"],
       default: "customer",
     },
     isActive: {
@@ -63,7 +60,7 @@ UserSchema.virtual("orders", {
 
 // Virtual for checking if user is admin
 UserSchema.virtual("isAdmin").get(function () {
-  return this.role === "admin" || this.role === "superadmin";
+  return this.role === "admin" ;
 });
 
 // Virtual for user's addresses (one-to-many)
