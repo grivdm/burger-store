@@ -1,0 +1,19 @@
+{
+    "header": {
+        "home": "Accueil",
+        "menu": "Menu",
+        "contacts": "Contacts",
+        "about": "À propos",
+        "login": "Connexion",
+        "logout": "Déconnexion",
+        "register": "Inscription",
+        "profile": "Profil"
+    },
+
+    "footer": {
+        "language": "Langue",
+        "english": "Anglais",
+        "french": "Français",
+        "rights": "Tous droits réservés."
+      }
+}
