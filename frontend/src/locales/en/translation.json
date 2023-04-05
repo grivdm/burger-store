@@ -1,0 +1,16 @@
+{
+    "header": {
+        "home": "Home",
+        "menu": "Menu",
+        "contacts": "Contacts",
+        "about": "About",
+        "login": "Login",
+        "logout": "Logout",
+        "register": "Register",
+        "profile": "Profile"
+      },
+
+      "footer": {
+        "rights": "All rights reserved."
+    }
+}
