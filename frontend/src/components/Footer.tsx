@@ -17,7 +17,12 @@ setScore(score + 10);
 
 return (
 <StyledAppBar position="static">
-<StyledToolbar>
+<Toolbar
+  sx={{
+      display: "flex",
+      justifyContent: "space-between",
+    }}
+  >
 <Typography variant="body1" sx={{ flexGrow: 1 }}>
 © 2023 {t("footer.rights")}
 </Typography>
@@ -35,10 +40,6 @@ top: "auto",
 bottom: 0,
 });
 
-const StyledToolbar = styled(Toolbar)({
-display: "flex",
-justifyContent: "space-between",
-});
 
 export default Footer;
 
