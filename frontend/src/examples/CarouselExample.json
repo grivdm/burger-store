@@ -1,0 +1,19 @@
+{
+    "1" : {
+        "title" : "Classic Burger",
+        "description": "Our classic burger is made with a juicy beef patty, lettuce, tomato, and our secret sauce.",
+        "image": "https://source.unsplash.com/random/1920x1080"
+    },
+    "2" : {
+        "title" : "Cheeseburger",
+        "description": "Our cheeseburger is made with a juicy beef patty, cheese, lettuce, tomato, and our secret sauce.",
+        "image": "https://source.unsplash.com/random/1920x1080"
+        
+    },
+    "3" : {
+        "title" : "Bacon Cheeseburger",
+        "description": "Our bacon cheeseburger is made with a juicy beef patty, cheese, lettuce, tomato, bacon, and our secret sauce.",
+        "image": "https://source.unsplash.com/random/1920x1080"
+    }
+}
+

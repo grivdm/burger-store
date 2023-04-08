@@ -1,8 +1,7 @@
 import React from 'react';
-import { styled } from '@mui/material/styles';
-import { Card, CardActionArea , CardContent, Typography, CardMedia } from '@mui/material';
+import { CardActionArea , CardContent, Typography, CardMedia } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
-import { css } from '@emotion/react';
+import CarouselExample from '../examples/CarouselExample.json';
 
 interface Item {
   title: string;
@@ -10,61 +9,48 @@ interface Item {
   image: string;
 }
 
-const StyledCardActionArea = styled(CardActionArea)({
-  margin: '3 auto',
-});
-
-const mediaStyle = css`
-  height: 10;
-  padding-top: 56.25%;
-  margin: 3 auto;
-`;
-
-const StyledCardMedia = styled(CardMedia)(mediaStyle);
-
-const StyledCardContent = styled(CardContent)({
-  height: '100px',
-});
+const items: Item[] = Object.values(CarouselExample);
+console.log(items);
 
 const CarouselItem: React.FC<{ item: Item }> = ({ item }) => {
   const { title, description, image } = item;
 
   return (
-    <StyledCardActionArea>
-      <StyledCardMedia image={image} title={title} />
-      <StyledCardContent>
+    <CardActionArea
+      sx={{
+        margin: '3 auto',
+      }}
+    >
+      <CardMedia image={image} title={title}
+        sx={{
+          height: '5',
+          paddingTop: '56.25%',
+          margin: '3 auto',
+        }}
+      />
+      <CardContent
+        sx={{
+          height: '100px',
+        }}
+      >
         <Typography gutterBottom variant="h5" component="h2">
           {title}
         </Typography>
         <Typography variant="body1" color="textSecondary" component="p">
           {description}
         </Typography>
-      </StyledCardContent>
-    </StyledCardActionArea>
+      </CardContent>
+    </CardActionArea>
   );
 };
 
-const items: Item[] = [
-  {
-    title: 'Classic Burger',
-    description: 'Our classic burger is made with a juicy beef patty, lettuce, tomato, and our secret sauce.',
-    image: 'https://source.unsplash.com/random/1920x1080',
-  },
-  {
-    title: 'Cheeseburger',
-    description: 'Our cheeseburger is made with a juicy beef patty, cheese, lettuce, tomato, and our secret sauce.',
-    image: 'https://source.unsplash.com/random/1920x1080',
-  },
-  {
-    title: 'Bacon Cheeseburger',
-    description: 'Our bacon cheeseburger is made with a juicy beef patty, cheese, bacon, lettuce, tomato, and our secret sauce.',
-    image: 'https://source.unsplash.com/random/1920x1080',
-  },
-];
 
 const CarouselComponent: React.FC = () => {
   return (
+    <div id='home'>
+
     <Carousel
+      height={400}
       fullHeightHover={false} 
       animation="slide"
       autoPlay={true}
@@ -84,6 +70,7 @@ const CarouselComponent: React.FC = () => {
         <CarouselItem key={index} item={item} />
       ))}
     </Carousel>
+    </div>
   );
 };
 

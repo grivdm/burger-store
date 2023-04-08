@@ -9,7 +9,6 @@ import { useTranslation } from 'react-i18next'
 const LanguageDropdown: React.FC= () => {
     const {i18n}  = useTranslation()
     const [selectedLanguage, setSelectedLanguage] = useState<string>(i18n.language);
-    console.log('-----------my-------', i18n.language)
 
     const handleLanguageChange = (event: SelectChangeEvent<string>, child: ReactNode) => {
         const newLanguage = event.target.value as string;

@@ -9,11 +9,15 @@
         "register": "Inscription",
         "profile": "Profil"
     },
-
     "footer": {
         "language": "Langue",
         "english": "Anglais",
         "french": "Français",
         "rights": "Tous droits réservés."
-      }
+    },
+    "homePage": {
+        "title": "Accueil",
+        "welcome": "Bienvenue",
+        "about": "Dans mon burger store, je m'efforce de fournir aux clients des ingrédients de la plus haute qualité et le meilleur service possible. Malheureusement, je n'ai pas encore tout à fait compris comment livrer les burgers alléchants à votre porte. Mais ne vous inquiétez pas, vous pouvez toujours profiter de la prochaine meilleure chose - les incroyables images de burgers générées par Midjourney !"
+    }
 }

@@ -12,5 +12,11 @@
 
       "footer": {
         "rights": "All rights reserved."
+    },
+
+    "homePage": {
+        "title": "Home",
+        "welcome": "Welcome to the home page!",
+        "about": "At my burger store, I strive to provide customers with the highest quality ingredients and the best possible service. Unfortunately, I haven't quite figured out how to deliver the mouthwatering burgers to your doorstep yet. But don't worry, you can still enjoy the next best thing - the amazing Midjourney generated burger images!"
     }
 }

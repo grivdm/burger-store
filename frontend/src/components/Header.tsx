@@ -1,35 +1,41 @@
-import React, { useState } from "react";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  Box,
-  Grid,
-} from "@mui/material";
-import { Link } from "react-router-dom";
+import React from "react";
+import { AppBar, Toolbar, Typography, Button, Box, Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { css } from "@emotion/react";
+import AnchorLink from "react-anchor-link-smooth-scroll";
+import CartButton from "./CartButton";
 
-interface Props {
-  isLoggedIn: boolean;
-  handleLogout: () => void;
-}
 
-const Header: React.FC<Props> = ({ isLoggedIn, handleLogout }) => {
+
+const StyledButton = styled(Button)({
+  color: "#inherit",
+  "&:hover": {
+    color: "#fff",
+  },
+  a: {
+    color: "#fff",
+    textDecoration: "none",
+  },
+});
+
+const Header = () => {
   const { t } = useTranslation();
-  const buttonStyles = css`
-  color: inherit;
-  &:hover {
-    color: #fff;
-  }
-`;
 
   return (
-    <StyledAppBar position="sticky">
-      <StyledToolbar>
+    <AppBar
+      sx={{
+        top: 0,
+        backgroundColor: "#333",
+        zIndex: (theme) => theme.zIndex.drawer + 1,
+      }}
+      position="sticky"
+    >
+      <Toolbar
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <Grid container alignItems="center">
           <Grid item xs={2}>
             <Typography variant="h4" component="div">
@@ -39,35 +45,31 @@ const Header: React.FC<Props> = ({ isLoggedIn, handleLogout }) => {
           <Grid item xs={8} container justifyContent="center">
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Box sx={{ mr: 2 }}>
-                <Button>{t("header.home")}</Button>
+                <StyledButton color="inherit">
+                  <AnchorLink href="#home">{t("header.home")}</AnchorLink>
+                </StyledButton>
               </Box>
               <Box sx={{ mr: 2 }}>
-                <Button color="inherit">{t("header.menu")}</Button>
+                <StyledButton color="inherit">
+                  <AnchorLink href="#menu">{t("header.menu")}</AnchorLink>
+                </StyledButton>
               </Box>
               <Box sx={{ mr: 2 }}>
-                <Button color="inherit">{t("header.contacts")}</Button>
-              </Box>
-              <Box sx={{ mr: 2 }}>
-                <Button color="inherit">{t("header.about")}</Button>
+                <StyledButton color="inherit">
+                  <AnchorLink href="#about">{t("header.about")}</AnchorLink>
+                </StyledButton>
               </Box>
             </Box>
           </Grid>
           <Grid item xs={2} container justifyContent="flex-end">
-            <ShoppingCartIcon sx={{ fontSize: "2rem" }} />
+            <StyledButton color="inherit">
+              <CartButton />
+            </StyledButton>
           </Grid>
         </Grid>
-      </StyledToolbar>
-    </StyledAppBar>
+      </Toolbar>
+    </AppBar>
   );
 };
-
-const StyledAppBar = styled(AppBar)({
-  backgroundColor: "#333",
-});
-
-const StyledToolbar = styled(Toolbar)({
-  display: "flex",
-  justifyContent: "center",
-});
 
 export default Header;

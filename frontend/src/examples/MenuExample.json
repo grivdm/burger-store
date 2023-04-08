@@ -1,0 +1,67 @@
+{
+    "1": {
+      "id": 1,
+      "name": "Classic Burger",
+      "category": "burgers",
+      "image": "https://source.unsplash.com/random/640x360",
+      "description":"Our classic burger is made with a juicy beef patty, lettuce, tomato, and our secret sauce.",
+      "price": 4.99
+    },
+     "2": {
+      "id": 2,
+      "name": "Cheeseburger",
+      "category": "burgers",
+      "image": "https://source.unsplash.com/random/640x360",
+      "description": "Our cheeseburger is made with a juicy beef patty, cheese, lettuce, tomato, and our secret sauce.",
+      "price": 5.99
+    },
+    "3": {
+        "id": 3,
+        "name": "Bacon Cheeseburger",
+        "category": "burgers",
+        "image": "https://source.unsplash.com/random/640x360",
+        "description": "Our bacon cheeseburger is made with a juicy beef patty, cheese, bacon, lettuce, tomato, and our secret sauce.",
+        "price": 6.99
+        },
+    "4": {
+        "id": 4,
+        "name": "Classic Fries",
+        "category": "sides",
+        "image": "https://source.unsplash.com/random/640x360",
+        "description": "Our fries are crispy and delicious.",
+        "price": 2.99
+        },
+    "5": {
+        "id": 5,
+        "name": "Onion Rings",
+        "category": "sides",
+        "image": "https://source.unsplash.com/random/640x360",
+        "description": "Our onion rings are crispy and delicious.",
+        "price": 3.99
+        },
+
+    "6": {
+        "id": 6,
+        "name": "Classic Soda",
+        "category": "drinks",
+        "image": "https://source.unsplash.com/random/640x360",
+        "description": "Our classic soda is made with real sugar.",
+        "price": 1.99
+        },
+    "7": {
+        "id": 7,
+        "name": "Classic Milkshake",
+        "category": "drinks",
+        "image": "https://source.unsplash.com/random/640x360",
+        "description": "Our classic milkshake is made with real ice cream.",
+        "price": 3.99
+        },
+    "8": {
+        "id": 8,
+        "name": "Classic Beer",
+        "category": "drinks",
+        "image": "https://source.unsplash.com/random/640x360",
+        "description": "Our classic beer is made with real hops.",
+        "price": 4.99
+        }
+}
